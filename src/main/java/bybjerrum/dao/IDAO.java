@@ -1,4 +1,4 @@
-package bybjerrum.persistence;
+package bybjerrum.dao;
 
 import java.util.Set;
 

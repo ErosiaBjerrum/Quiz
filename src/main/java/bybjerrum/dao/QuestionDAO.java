@@ -1,5 +1,7 @@
-package bybjerrum.persistence;
+package bybjerrum.dao;
 
+import bybjerrum.entity.Difficulty;
+import bybjerrum.entity.Question;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.TypedQuery;
@@ -85,4 +87,16 @@ public class QuestionDAO implements IDAO<Question> {
             return new HashSet<>(query.getResultList());
         }
     }
+
+    public Question getByText(EntityManager em, String text) {
+        return em.createQuery(
+                        "SELECT q FROM Question q WHERE q.text = :text",
+                        Question.class
+                )
+                .setParameter("text", text)
+                .getResultStream()
+                .findFirst()
+                .orElse(null);
+    }
+
 }

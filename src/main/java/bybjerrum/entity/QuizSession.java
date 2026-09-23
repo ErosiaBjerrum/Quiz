@@ -1,4 +1,4 @@
-package bybjerrum.persistence;
+package bybjerrum.entity;
 
 import jakarta.persistence.*;
 

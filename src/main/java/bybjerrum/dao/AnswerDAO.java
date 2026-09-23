@@ -1,5 +1,6 @@
-package bybjerrum.persistence;
+package bybjerrum.dao;
 
+import bybjerrum.entity.Answer;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 

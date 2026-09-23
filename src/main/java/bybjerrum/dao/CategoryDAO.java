@@ -1,5 +1,6 @@
-package bybjerrum.persistence;
+package bybjerrum.dao;
 
+import bybjerrum.entity.Category;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
@@ -69,5 +70,16 @@ public class CategoryDAO implements IDAO<Category> {
             em.getTransaction().commit();
             return null;
         }
+    }
+
+    public Category getByName(EntityManager em, String name) {
+        return em.createQuery(
+                        "SELECT c FROM Category c WHERE c.name = :name",
+                        Category.class
+                )
+                .setParameter("name", name)
+                .getResultStream()
+                .findFirst()
+                .orElse(null);
     }
 }

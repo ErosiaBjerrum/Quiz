@@ -1,4 +1,4 @@
-package bybjerrum.persistence;
+package bybjerrum.entity;
 
 public enum Difficulty {
     VERY_EASY,

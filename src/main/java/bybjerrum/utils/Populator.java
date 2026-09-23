@@ -1,9 +1,9 @@
 package bybjerrum.utils;
 
-import bybjerrum.persistence.Answer;
-import bybjerrum.persistence.Category;
-import bybjerrum.persistence.Difficulty;
-import bybjerrum.persistence.Question;
+import bybjerrum.entity.Answer;
+import bybjerrum.entity.Category;
+import bybjerrum.entity.Difficulty;
+import bybjerrum.entity.Question;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 

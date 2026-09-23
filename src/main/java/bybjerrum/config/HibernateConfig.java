@@ -1,5 +1,8 @@
-package bybjerrum.persistence;
+package bybjerrum.config;
 
+import bybjerrum.entity.Answer;
+import bybjerrum.entity.Category;
+import bybjerrum.entity.Question;
 import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

@@ -32,7 +32,7 @@ public class QuestionDAO implements IDAO<Question> {
         try (EntityManager em = emf.createEntityManager()) {
             return new HashSet<>(
                     em.createQuery(
-                            "SELECT q FROM Question q",
+                            "SELECT DISTINCT q FROM Question q LEFT JOIN FETCH q.answers",
                             Question.class
                     ).getResultList()
             );

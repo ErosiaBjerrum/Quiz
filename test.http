@@ -1,0 +1,6 @@
+POST http://localhost:7070/questions/answer
+Content-Type: application/json
+
+{
+  "answerId": 999999
+}

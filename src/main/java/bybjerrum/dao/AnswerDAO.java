@@ -64,7 +64,7 @@ public class AnswerDAO implements IDAO<Answer> {
             if (managed != null) {
                 em.remove(managed);
                 em.getTransaction().commit();
-                return (long) answer.getId();
+                return answer.getId();
             }
 
             em.getTransaction().commit();

@@ -14,6 +14,7 @@ public class QuestionRoutes {
     public void register(Javalin app) {
         app.get("/questions", questionController::getAllQuestions);
         app.post("/questions/answer", questionController::checkAnswer);
+        app.post("/questions/import", questionController::importQuestions);
     }
 
 }

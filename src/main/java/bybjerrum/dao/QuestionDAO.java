@@ -66,7 +66,7 @@ public class QuestionDAO implements IDAO<Question> {
             if (managed != null) {
                 em.remove(managed);
                 em.getTransaction().commit();
-                return (long) question.getId();
+                return question.getId();
             }
 
             em.getTransaction().commit();
@@ -88,15 +88,17 @@ public class QuestionDAO implements IDAO<Question> {
         }
     }
 
-    public Question getByText(EntityManager em, String text) {
-        return em.createQuery(
-                        "SELECT q FROM Question q WHERE q.text = :text",
-                        Question.class
-                )
-                .setParameter("text", text)
-                .getResultStream()
-                .findFirst()
-                .orElse(null);
+    public Question getByText(String text) {
+        try (EntityManager em = emf.createEntityManager()) {
+            return em.createQuery(
+                            "SELECT q FROM Question q WHERE q.text = :text",
+                            Question.class
+                    )
+                    .setParameter("text", text)
+                    .getResultStream()
+                    .findFirst()
+                    .orElse(null);
+        }
     }
 
 }

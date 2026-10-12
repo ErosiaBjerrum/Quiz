@@ -16,7 +16,7 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    String text;
+    private String text;
 
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;

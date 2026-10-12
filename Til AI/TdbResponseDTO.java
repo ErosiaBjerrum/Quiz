@@ -1,19 +1,14 @@
 package bybjerrum.dto;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.List;
 
-public class TriviaResponseDTO {
+public class TdbResponseDTO {
 
     private int response_code;
-    private List<QuestionDTO> results;
+    private List<QuestionTdbDTO> results;
 
 
-
-    public TriviaResponseDTO() {
+    public TdbResponseDTO() {
     }
 
     public int getResponse_code() {
@@ -24,11 +19,11 @@ public class TriviaResponseDTO {
         this.response_code = response_code;
     }
 
-    public List<QuestionDTO> getResults() {
+    public List<QuestionTdbDTO> getResults() {
         return results;
     }
 
-    public void setResults(List<QuestionDTO> results) {
+    public void setResults(List<QuestionTdbDTO> results) {
         this.results = results;
     }
 }

@@ -15,8 +15,8 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    String text;
-    Boolean isCorrect;
+    private String text;
+    private Boolean isCorrect;
 
     @ManyToOne
     @JoinColumn(name = "question_id")

@@ -2,7 +2,7 @@ package bybjerrum.dto;
 
 import java.util.List;
 
-public class QuestionDTO {
+public class QuestionTdbDTO {
 
     private String type;
     private String difficulty;
@@ -11,7 +11,7 @@ public class QuestionDTO {
     private String correct_answer;
     private List<String> incorrect_answers;
 
-    public QuestionDTO() {
+    public QuestionTdbDTO() {
     }
 
     public String getType() {

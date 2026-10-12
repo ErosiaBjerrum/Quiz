@@ -64,7 +64,7 @@ public class CategoryDAO implements IDAO<Category> {
             if (managed != null) {
                 em.remove(managed);
                 em.getTransaction().commit();
-                return (long) category.getId();
+                return category.getId();
             }
 
             em.getTransaction().commit();
@@ -72,14 +72,17 @@ public class CategoryDAO implements IDAO<Category> {
         }
     }
 
-    public Category getByName(EntityManager em, String name) {
-        return em.createQuery(
-                        "SELECT c FROM Category c WHERE c.name = :name",
-                        Category.class
-                )
-                .setParameter("name", name)
-                .getResultStream()
-                .findFirst()
-                .orElse(null);
+    public Category getByName(String name) {
+        try (EntityManager em = emf.createEntityManager()) {
+            return em.createQuery(
+                            "SELECT c FROM Category c WHERE c.name = :name",
+                            Category.class
+                    )
+                    .setParameter("name", name)
+                    .getResultStream()
+                    .findFirst()
+                    .orElse(null);
+        }
     }
+
 }

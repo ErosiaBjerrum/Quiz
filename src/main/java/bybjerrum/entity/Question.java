@@ -24,7 +24,7 @@ public class Question {
     @ManyToOne
     private Category category;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST)
     private List<Answer> answers;
 
     public Question(String text, Difficulty difficulty, Category category, List<Answer> answers) {

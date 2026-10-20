@@ -17,6 +17,13 @@ public class HibernateConfig {
      * Purpose: This class is used to configure Hibernate and create an EntityManagerFactory.
      * Author: Thomas Hartmann
      */
+
+            static {
+            System.setProperty("org.jboss.logging.provider", "slf4j");
+            }
+
+
+
     private static EntityManagerFactory emf;
     private static EntityManagerFactory emfForTest;
     private static boolean isIntegrationTest = false; // this flag is set for

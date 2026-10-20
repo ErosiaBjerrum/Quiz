@@ -10,6 +10,7 @@ import bybjerrum.routes.QuestionRoutes;
 import bybjerrum.service.QuestionImportService;
 import io.javalin.Javalin;
 import jakarta.persistence.EntityManagerFactory;
+
 import java.util.Map;
 
 public class ApplicationConfig {
@@ -18,23 +19,22 @@ public class ApplicationConfig {
         EntityManagerFactory emf =
                 HibernateConfig.getEntityManagerFactory();
 
-        QuestionDAO questionDAO =
-                new QuestionDAO(emf);
+        Javalin app = createApp(emf, new TdbQuestionProvider());
+        app.start(7070);
+    }
 
-        AnswerDAO answerDAO =
-                new AnswerDAO(emf);
-
-        CategoryDAO categoryDAO =
-                new CategoryDAO(emf);
-
-        QuestionProvider questionProvider =
-                new TdbQuestionProvider();
+    public Javalin createApp(
+            EntityManagerFactory emf,
+            QuestionProvider questionProvider
+    ) {
+        QuestionDAO questionDAO = new QuestionDAO(emf);
+        AnswerDAO answerDAO = new AnswerDAO(emf);
+        CategoryDAO categoryDAO = new CategoryDAO(emf);
 
         QuestionImportService questionImportService =
                 new QuestionImportService(
                         questionProvider,
                         questionDAO,
-                        answerDAO,
                         categoryDAO
                 );
 
@@ -51,7 +51,6 @@ public class ApplicationConfig {
         Javalin app = Javalin.create();
 
         app.exception(Exception.class, (e, ctx) -> {
-            e.printStackTrace();
 
             ctx.status(500).json(
                     Map.of(
@@ -62,7 +61,6 @@ public class ApplicationConfig {
         });
 
         questionRoutes.register(app);
-        app.start(7070);
+        return app;
     }
-
 }

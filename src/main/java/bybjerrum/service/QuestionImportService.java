@@ -15,7 +15,6 @@ import java.util.List;
 
 public class QuestionImportService {
     private final QuestionDAO questionDAO;
-    private final AnswerDAO answerDAO;
     private final CategoryDAO categoryDAO;
 
     private final QuestionProvider questionProvider;
@@ -23,29 +22,27 @@ public class QuestionImportService {
     public QuestionImportService(
             QuestionProvider questionProvider,
             QuestionDAO questionDAO,
-            AnswerDAO answerDAO,
             CategoryDAO categoryDAO
     ) {
         this.questionProvider = questionProvider;
         this.questionDAO = questionDAO;
-        this.answerDAO = answerDAO;
         this.categoryDAO = categoryDAO;
     }
 
     public void importQuestions() {
-        // Her laves spørgsmålene
         List<ProviderQuestionDTO> questions = questionProvider.fetchQuestions();
 
         for (ProviderQuestionDTO dto : questions) {
             if (questionDAO.getByText(dto.getQuestion()) != null) {
                 continue;
             }
+
             Category category = categoryDAO.getByName(dto.getCategory());
+
             if (category == null) {
                 category = categoryDAO.create(new Category(dto.getCategory()));
             }
 
-            // konverterer tekststring til enum, fx "easy" -> "EASY"
             Difficulty difficulty =
                     Difficulty.valueOf(dto.getDifficulty().toUpperCase());
 
@@ -55,21 +52,17 @@ public class QuestionImportService {
                     category,
                     new ArrayList<>()
             );
-            question = questionDAO.create(question);
 
-            // Nu laves svarene
             for (String answerText : dto.getAnswers()) {
-
                 boolean isCorrect =
                         dto.getCorrectAnswers().contains(answerText);
 
-                Answer answer =
-                        new Answer(answerText, isCorrect, question);
+                Answer answer = new Answer(answerText, isCorrect, question);
                 question.getAnswers().add(answer);
-
-                answerDAO.create(answer);
             }
 
+            // Gem spørgsmålet og alle dets svar i samme transaktion
+            questionDAO.create(question);
         }
     }
 

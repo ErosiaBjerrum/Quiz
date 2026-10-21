@@ -16,10 +16,12 @@ import java.util.Map;
 public class ApplicationConfig {
 
     public void runApplication() {
+
         EntityManagerFactory emf =
                 HibernateConfig.getEntityManagerFactory();
 
         Javalin app = createApp(emf, new TdbQuestionProvider());
+
         app.start(7070);
     }
 

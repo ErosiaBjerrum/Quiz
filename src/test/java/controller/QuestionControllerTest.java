@@ -79,8 +79,8 @@ class QuestionControllerTest {
                 .createApp(emf, testProvider)
                 .start(0);
     }
+ @AfterEach
 
-    @AfterEach
     void tearDown() {
         try {
             if (app != null) {

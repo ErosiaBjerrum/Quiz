@@ -13,6 +13,7 @@ import jakarta.persistence.EntityManagerFactory;
 
 import java.util.Map;
 
+// CI/CD deployment test - 23 October 2026
 public class ApplicationConfig {
 
     public void runApplication() {

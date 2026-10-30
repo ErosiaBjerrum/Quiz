@@ -31,3 +31,13 @@ GET http://localhost:7070/auth/me
 ### Hent brugeroplysninger med gyldigt JWT
 GET http://localhost:7070/auth/me
 Authorization: Bearer <YOUR_JWT_TOKEN>
+
+### Import questions from OpenTDB
+POST http://localhost:7070/questions/import
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzkzMzUyNDk2LCJleHAiOjE3OTMzNTk2OTZ9.Zc6bxOJ7VLuVL_mRV8ubuKAzE7xC43EcyGWFhxqIiME
+Content-Type: application/json
+
+{
+  "amount": 20,
+  "difficulty": "EASY"
+}

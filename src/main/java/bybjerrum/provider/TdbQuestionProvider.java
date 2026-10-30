@@ -17,7 +17,7 @@ public class TdbQuestionProvider implements QuestionProvider {
     @Override
     public List<ProviderQuestionDTO> fetchQuestions() {
         try {
-            String url = "https://opentdb.com/api.php?amount=10&type=multiple";
+            String url = "https://opentdb.com/api.php?amount=50&type=multiple";
 
             HttpClient client = HttpClient.newHttpClient();
 

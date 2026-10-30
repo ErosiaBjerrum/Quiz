@@ -43,7 +43,7 @@ Browser / API client
 
 **Separate layers**
 
-I use separate controllers, services and DAOs. This keeps HTTP handling, quiz logic and database access separate
+I use separate controllers, services and DAOs. This keeps HTTP handling, quiz logic and database access separate.
 
 **Question imports**
 
@@ -150,6 +150,6 @@ The response includes whether the answer was correct, the correct answer text, p
 - The local database settings in `HibernateConfig` use username `postgres` and password `postgres`. Change these for your own setup.
 - Set the `JWT_SECRET` environment variable before starting the application.
 - Run the `Main` class. Javalin starts on port `7070`.
-- Open `http://localhost:7070` to use the frontend.
+- When starting with an empty database, questions must be imported before a quiz can be played. First, register a user through `/auth/register` and log in through `/auth/login`. Then use the returned JWT to import questions from OpenTDB through `/questions/import`.
 
 Run the tests with `mvn test`. The integration tests use Testcontainers, so Docker must be running.

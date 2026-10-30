@@ -1,1 +1,19 @@
-GET http://localhost:7070/questions
+### Opret multiplayer-rum
+POST http://localhost:7070/quizzes/rooms
+Content-Type: application/json
+
+{
+  "username": "Anders",
+  "numberOfQuestions": 5,
+  "difficulty": null,
+  "categoryId": null
+}
+
+### Tilslut Peter
+POST http://localhost:7070/quizzes/rooms/join
+Content-Type: application/json
+
+{
+  "roomCode": "1539",
+  "username": "Peter"
+}

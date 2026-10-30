@@ -1,23 +1,22 @@
 package bybjerrum.dao;
 
+import bybjerrum.entity.Category;
 import bybjerrum.entity.Difficulty;
 import bybjerrum.entity.Question;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.TypedQuery;
+import lombok.RequiredArgsConstructor;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-public class QuestionDAO implements IDAO<Question> {
+@RequiredArgsConstructor
+public class QuestionDAO {
 
     private final EntityManagerFactory emf;
 
-    public QuestionDAO(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
-
-    @Override
     public Question create(Question question) {
         try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
@@ -27,7 +26,6 @@ public class QuestionDAO implements IDAO<Question> {
         }
     }
 
-    @Override
     public Set<Question> get() {
         try (EntityManager em = emf.createEntityManager()) {
             return new HashSet<>(
@@ -36,55 +34,6 @@ public class QuestionDAO implements IDAO<Question> {
                             Question.class
                     ).getResultList()
             );
-        }
-    }
-
-    @Override
-    public Question getByID(Long id) {
-        try (EntityManager em = emf.createEntityManager()) {
-            return em.find(Question.class, id);
-        }
-    }
-
-    @Override
-    public Question update(Question question) {
-        try (EntityManager em = emf.createEntityManager()) {
-            em.getTransaction().begin();
-            Question updated = em.merge(question);
-            em.getTransaction().commit();
-            return updated;
-        }
-    }
-
-    @Override
-    public Long delete(Question question) {
-        try (EntityManager em = emf.createEntityManager()) {
-            em.getTransaction().begin();
-
-            Question managed = em.find(Question.class, question.getId());
-
-            if (managed != null) {
-                em.remove(managed);
-                em.getTransaction().commit();
-                return question.getId();
-            }
-
-            em.getTransaction().commit();
-            return null;
-        }
-    }
-
-    public Set<Question> getVeryHardQuestions() {
-        try (EntityManager em = emf.createEntityManager()) {
-
-            TypedQuery<Question> query = em.createQuery(
-                    "SELECT q FROM Question q WHERE q.difficulty = :difficulty",
-                    Question.class
-            );
-
-            query.setParameter("difficulty", Difficulty.VERY_HARD);
-
-            return new HashSet<>(query.getResultList());
         }
     }
 
@@ -98,6 +47,42 @@ public class QuestionDAO implements IDAO<Question> {
                     .getResultStream()
                     .findFirst()
                     .orElse(null);
+        }
+    }
+
+     // Fetches random questions from the database.
+     // Difficulty and category are optional filters.
+    public List<Question> getRandomQuestions(
+            int amount, Difficulty difficulty, Category category) {
+
+        try (EntityManager em = emf.createEntityManager()) {
+
+            String jpql = "SELECT q FROM Question q WHERE 1=1";
+
+            if (difficulty != null) {
+                jpql += " AND q.difficulty = :difficulty";
+            }
+
+            if (category != null) {
+                jpql += " AND q.category = :category";
+            }
+
+            jpql += " ORDER BY FUNCTION('RANDOM')";
+
+            TypedQuery<Question> query =
+                    em.createQuery(jpql, Question.class);
+
+            if (difficulty != null) {
+                query.setParameter("difficulty", difficulty);
+            }
+
+            if (category != null) {
+                query.setParameter("category", category);
+            }
+
+            query.setMaxResults(amount);
+
+            return query.getResultList();
         }
     }
 

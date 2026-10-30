@@ -8,10 +8,5 @@ public class Main {
         ApplicationConfig appConfig = new ApplicationConfig();
         appConfig.runApplication();
 
-    // USE APP FROM HERE
-
-
-
-
     }
 }

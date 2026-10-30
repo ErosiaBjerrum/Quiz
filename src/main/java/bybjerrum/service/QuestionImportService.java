@@ -1,6 +1,5 @@
 package bybjerrum.service;
 
-import bybjerrum.dao.AnswerDAO;
 import bybjerrum.dao.CategoryDAO;
 import bybjerrum.dao.QuestionDAO;
 import bybjerrum.dto.ProviderQuestionDTO;
@@ -9,30 +8,24 @@ import bybjerrum.entity.Category;
 import bybjerrum.entity.Difficulty;
 import bybjerrum.entity.Question;
 import bybjerrum.provider.QuestionProvider;
+import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class QuestionImportService {
-    private final QuestionDAO questionDAO;
-    private final CategoryDAO categoryDAO;
 
     private final QuestionProvider questionProvider;
-
-    public QuestionImportService(
-            QuestionProvider questionProvider,
-            QuestionDAO questionDAO,
-            CategoryDAO categoryDAO
-    ) {
-        this.questionProvider = questionProvider;
-        this.questionDAO = questionDAO;
-        this.categoryDAO = categoryDAO;
-    }
+    private final QuestionDAO questionDAO;
+    private final CategoryDAO categoryDAO;
 
     public void importQuestions() {
         List<ProviderQuestionDTO> questions = questionProvider.fetchQuestions();
 
         for (ProviderQuestionDTO dto : questions) {
+
+            // Skips questions that already exist in the database.
             if (questionDAO.getByText(dto.getQuestion()) != null) {
                 continue;
             }
@@ -61,7 +54,6 @@ public class QuestionImportService {
                 question.getAnswers().add(answer);
             }
 
-            // Gem spørgsmålet og alle dets svar i samme transaktion
             questionDAO.create(question);
         }
     }

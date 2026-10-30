@@ -1,9 +1,8 @@
 package bybjerrum.entity;
 
+// Used later for AI question import
 public enum Difficulty {
-    VERY_EASY,
     EASY,
     MEDIUM,
     HARD,
-    VERY_HARD
-    }
+}

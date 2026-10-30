@@ -41,7 +41,7 @@ public class TdbQuestionProvider implements QuestionProvider {
                 );
             }
 
-
+            // Converts OpenTDB questions to our own DTO format.
             return triviaResponse.getResults().stream()
                     .map(q -> {
                         String correctAnswer =
@@ -71,4 +71,5 @@ public class TdbQuestionProvider implements QuestionProvider {
             );
         }
     }
+
 }

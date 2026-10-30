@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Familiequiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Familiequiz</h1>
+
+<!-- STARTSKÆRM -->
+<section id="start-screen">
+    <h2>Start en quiz</h2>
+
+    <label for="username">Dit navn:</label>
+    <input type="text" id="username" placeholder="Skriv dit navn">
+
+    <br><br>
+
+    <label for="question-count">Antal spørgsmål:</label>
+    <select id="question-count">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+    </select>
+
+    <br><br>
+
+    <label for="difficulty">Sværhedsgrad:</label>
+    <select id="difficulty">
+        <option value="">Blandet</option>
+        <option value="VERY_EASY">Meget let</option>
+        <option value="EASY">Let</option>
+        <option value="MEDIUM">Middel</option>
+        <option value="HARD">Svær</option>
+        <option value="VERY_HARD">Meget svær</option>
+    </select>
+
+    <br><br>
+
+    <button id="start-button">Start quiz</button>
+    <br><br>
+    <button id="create-room-button">Opret multiplayer-rum</button>
+    <button id="join-room-button">Tilslut multiplayer-rum</button>
+</section>
+
+<!-- MULTIPLAYER-LOBBY -->
+<section id="lobby-screen" hidden>
+    <h2>Multiplayer-lobby</h2>
+
+    <p>Rumkode: <strong id="room-code"></strong></p>
+
+    <div id="join-fields" hidden>
+        <label for="join-code">Indtast rumkode:</label>
+        <input id="join-code" maxlength="4" placeholder="1234">
+        <button id="confirm-join-button">Tilslut</button>
+    </div>
+
+    <h3>Deltagere</h3>
+    <ul id="participant-list"></ul>
+
+    <button id="start-multiplayer-button" hidden>Start quiz</button>
+</section>
+
+<!-- QUIZSKÆRM -->
+<section id="quiz-screen" hidden>
+    <h2 id="question-number">Spørgsmål 1</h2>
+    <p id="quiz-timer">Tid tilbage: 30 sekunder</p>
+    <h3 id="question-text"></h3>
+
+    <div id="answer-options"></div>
+
+    <p id="answer-feedback"></p>
+    <p id="score-display">Point: 0</p>
+
+    <button id="next-button" hidden>Næste spørgsmål</button>
+</section>
+
+<!-- RESULTATSKÆRM -->
+<section id="result-screen" hidden>
+    <h2>Quizzen er færdig!</h2>
+
+    <p id="final-score"></p>
+
+    <button id="restart-button">Spil igen</button>
+</section>
+
+<!-- FEJLBESKEDER -->
+<p id="error-message" role="alert"></p>
+
+<!-- JavaScript tilføjes senere -->
+<script src="script.js"></script>
+
+</body>
+</html>

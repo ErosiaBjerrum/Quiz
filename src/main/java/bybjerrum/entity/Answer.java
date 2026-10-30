@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -16,15 +17,17 @@ public class Answer {
     private Long id;
 
     private String text;
-    private Boolean isCorrect;
+
+    @Column(name = "iscorrect")
+    private boolean correct;
 
     @ManyToOne
     @JoinColumn(name = "question_id")
     private Question question;
 
-    public Answer(String text, Boolean isCorrect, Question question) {
+    public Answer(String text, boolean correct, Question question) {
         this.text = text;
-        this.isCorrect = isCorrect;
+        this.correct = correct;
         this.question = question;
     }
 }

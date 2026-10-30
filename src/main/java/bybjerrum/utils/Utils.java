@@ -10,9 +10,7 @@ import java.util.Properties;
  * Author: Thomas Hartmann
  */
 public class Utils {
-    public static void main(String[] args) {
-        System.out.println(getPropertyValue("db.name", "config.properties"));
-    }
+
     public static String getPropertyValue(String propName, String ressourceName)  {
         try (InputStream is = Utils.class.getClassLoader().getResourceAsStream(ressourceName)) {
             if (is == null) {

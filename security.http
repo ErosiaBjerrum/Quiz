@@ -1,0 +1,33 @@
+### Registrér en ny bruger
+POST http://localhost:7070/auth/register
+Content-Type: application/json
+
+{
+  "username": "Testbruger",
+  "password": "familie123"
+}
+
+### Log ind med korrekt adgangskode
+POST http://localhost:7070/auth/login
+Content-Type: application/json
+
+{
+  "username": "Testbruger",
+  "password": "familie123"
+}
+
+### Log ind med forkert adgangskode
+POST http://localhost:7070/auth/login
+Content-Type: application/json
+
+{
+  "username": "Testbruger",
+  "password": "forkert123"
+}
+
+### Forsøg at tilgå et beskyttet endpoint uden login
+GET http://localhost:7070/auth/me
+
+### Hent brugeroplysninger med gyldigt JWT
+GET http://localhost:7070/auth/me
+Authorization: Bearer <YOUR_JWT_TOKEN>

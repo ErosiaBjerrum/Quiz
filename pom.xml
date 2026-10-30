@@ -84,6 +84,28 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- BCrypt til sikker hashing af adgangskoder -->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
+
+        <!-- Opdater commons-codec for at rette sikkerhedsadvarslen -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.15</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JWT til login og autentificering -->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>4.6.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -144,6 +166,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.0.0</version>
+                    <configuration>
+                        <environmentVariables>
+                            <JWT_SECRET>local-test-secret-only-for-junit-2026</JWT_SECRET>
+                        </environmentVariables>
+                    </configuration>
                 </plugin>
             </plugins>
         </build>
